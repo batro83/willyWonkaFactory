@@ -8,12 +8,15 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.willywonkafactory.rest.dto.WorkerDto;
+import com.app.willywonkafactory.rest.exception.AppRuntimeException;
 import com.app.willywonkafactory.rest.service.impl.WorkerServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
@@ -33,6 +36,15 @@ public class WorkerController {
 		LOG.debug("WorkerController - createWorker");
 		workerService.createWorker(dto);
 		return ResponseEntity.ok(HttpStatus.CREATED);
+	}
+
+	@ApiOperation(value = "Update worker", notes = "Update worker")
+	@PatchMapping("/{id}")
+	public ResponseEntity<HttpStatus> updateWorker(@PathVariable("id") String idWorker, @RequestBody WorkerDto dto)
+			throws AppRuntimeException {
+		LOG.debug("WorkerController - update Worker {id}", idWorker);
+		workerService.editWorker(idWorker, dto);
+		return ResponseEntity.ok(HttpStatus.OK);
 	}
 
 }

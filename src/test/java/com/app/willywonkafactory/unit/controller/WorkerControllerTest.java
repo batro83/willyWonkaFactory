@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.app.willywonkafactory.rest.controller.WorkerController;
 import com.app.willywonkafactory.rest.dto.WorkerDto;
+import com.app.willywonkafactory.rest.exception.AppRuntimeException;
 import com.app.willywonkafactory.rest.service.impl.WorkerServiceImpl;
 
 @RunWith(SpringRunner.class)
@@ -26,9 +27,16 @@ public class WorkerControllerTest {
 	private WorkerServiceImpl workerService;
 
 	@Test
-	public void test001_createWorker() throws Exception {
+	public void test001_createWorker() {
 		ResponseEntity<HttpStatus> response = workerController.createWorker(new WorkerDto());
 		assertEquals(CREATED, response.getBody());
+		assertEquals(OK, response.getStatusCode());
+	}
+
+	@Test
+	public void test002_updateWorker() throws AppRuntimeException {
+		ResponseEntity<HttpStatus> response = workerController.updateWorker("", new WorkerDto());
+		assertEquals(OK, response.getBody());
 		assertEquals(OK, response.getStatusCode());
 	}
 }
