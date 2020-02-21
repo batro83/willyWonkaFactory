@@ -16,10 +16,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
+	testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 	compile group: 'com.google.guava', name: 'guava', version: '28.2-jre'
+	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+	compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.6'
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
 }
 
 test {

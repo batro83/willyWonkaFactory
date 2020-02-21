@@ -1,5 +1,6 @@
-package com.app.willywonkafactory.model;
+package com.app.willywonkafactory.rest.model;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
@@ -13,12 +14,15 @@ public class Worker {
 	@NotNull
 	private String name;
 	@NotNull
+	@Min(0)
 	private int age;
 	@NotNull
 	private String job;
 	@NotNull
+	@Min(0)
 	private double height;
 	@NotNull
+	@Min(0)
 	private double weight;
 	private String decription;
 
