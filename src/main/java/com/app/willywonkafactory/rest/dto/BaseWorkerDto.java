@@ -14,7 +14,7 @@ public class BaseWorkerDto {
 	@NotNull
 	private String name;
 	@NotNull
-	private int age;
+	private Integer age;
 	@NotNull
 	private String job;
 
@@ -26,11 +26,11 @@ public class BaseWorkerDto {
 		this.name = name;
 	}
 
-	public int getAge() {
+	public Integer getAge() {
 		return age;
 	}
 
-	public void setAge(int age) {
+	public void setAge(Integer age) {
 		this.age = age;
 	}
 

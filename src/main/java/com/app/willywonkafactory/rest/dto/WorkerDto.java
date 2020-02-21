@@ -11,12 +11,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkerDto extends BaseWorkerDto {
 
-	@NotNull
 	private String id;
 	@NotNull
-	private double height;
+	private Double height;
 	@NotNull
-	private double weight;
+	private Double weight;
 	private String decription;
 
 	public String getId() {
@@ -27,19 +26,19 @@ public class WorkerDto extends BaseWorkerDto {
 		this.id = id;
 	}
 
-	public double getHeight() {
+	public Double getHeight() {
 		return height;
 	}
 
-	public void setHeight(double height) {
+	public void setHeight(Double height) {
 		this.height = height;
 	}
 
-	public double getWeight() {
+	public Double getWeight() {
 		return weight;
 	}
 
-	public void setWeight(double weight) {
+	public void setWeight(Double weight) {
 		this.weight = weight;
 	}
 
