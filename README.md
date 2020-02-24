@@ -5,11 +5,34 @@
 
 ### Docker
 
+Build and run image:  
 
-### Run app
+```
+ sudo docker build -t willywonkafactory .  
+ sudo docker run -p 8081:8081 -d --net="host" -it willywonkafactory
+```
+
+### Run with docker-compose
+
+In the root of the project run:
+
+```
+ sudo docker-compose up 
+```
+
+This will build and start one container for the rest api and another container with a mongoDb image.
 
 
 ### Test app
+
+
+
+
+### Swagger
+
+Once the application is started with docker-compose it can be tested with swagger:
+
+[http://localhost:8081/swagger-ui.html](http://localhost:8081/swagger-ui.html)
 
 
 ### Reference Documentation
