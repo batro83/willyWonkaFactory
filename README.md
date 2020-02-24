@@ -1,31 +1,43 @@
 # Willy Wonka Factory
 
+Willy wonka workers rest api (CRUD)) with MongoDb.  
+
 ## Getting Started
 
-
-### Docker
-
-Build and run image:  
-
-```
- sudo docker build -t willywonkafactory .  
- sudo docker run -p 8081:8081 -d --net="host" -it willywonkafactory
-```
 
 ### Run with docker-compose
 
 In the root of the project run:
 
 ```
- sudo docker-compose up 
+ gradle bootJar
+ 
+ docker-compose up 
 ```
 
 This will build and start one container for the rest api and another container with a mongoDb image.
 
 
-### Test app
+### Run with Docker
 
+In the root of the project build and run image:  
 
+```
+ gradle bootJar
+
+ docker build -t willywonkafactory .  
+ 
+ docker run -p 8081:8081 -d --net="host" -it willywonkafactory
+```
+
+### Run tests
+
+To test the boot jar you must have a mongodb installed on your computer.
+In the root of the project run:
+
+```
+ gradle test
+```
 
 
 ### Swagger

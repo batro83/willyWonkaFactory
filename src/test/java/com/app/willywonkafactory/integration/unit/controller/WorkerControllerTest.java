@@ -17,6 +17,7 @@ import org.junit.runners.MethodSorters;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -30,6 +31,7 @@ import com.app.willywonkafactory.rest.dto.BaseWorkerDto;
 import com.app.willywonkafactory.rest.dto.WorkerDto;
 import com.app.willywonkafactory.rest.exception.AppRuntimeException;
 import com.app.willywonkafactory.rest.model.Worker;
+import com.app.willywonkafactory.rest.pagination.RestResponsePage;
 import com.app.willywonkafactory.rest.service.impl.WorkerServiceImpl;
 
 @RunWith(SpringRunner.class)
@@ -72,18 +74,36 @@ public class WorkerControllerTest {
 	@Test
 	public void test004_getAllWorkers() throws AppRuntimeException {
 		Pageable pageableRequest = PageRequest.of(0, 2);
+
+		WorkerDto worker1 = new WorkerDto();
+		worker1.setName("integration test 1");
+		worker1.setAge(33);
+		worker1.setDescription("descrip1");
+		worker1.setHeight(169.5d);
+		worker1.setWeight(60.7d);
+		worker1.setJob("Job1");
+
+		WorkerDto worker2 = new WorkerDto();
+		worker2.setName("integration test 2");
+		worker2.setAge(60);
+		worker2.setDescription("descrip2");
+		worker2.setHeight(189.5d);
+		worker2.setWeight(80.7d);
+		worker2.setJob("Job2");
+
 		List<Worker> workerList = newArrayList(new Worker(), new Worker());
-		List<WorkerDto> workerDtoList = newArrayList(new WorkerDto(), new WorkerDto());
+		List<WorkerDto> workerDtoList = newArrayList(worker1, worker2);
 		Page<Worker> pageWorker = new PageImpl<>(workerList, pageableRequest, 10);
 		when(workerService.getWorkers(any(PageRequest.class))).thenReturn(pageWorker);
 
-		when(mapper.map(any(), any())).thenReturn(workerDtoList);
+		when(mapper.map(pageWorker.getContent(), new TypeToken<List<WorkerDto>>() {}.getType()))
+				.thenReturn(workerDtoList);
 
-		PageImpl<WorkerDto> response = workerController.getAllWorkers(0, 2);
-		assertEquals(2, response.getContent().size());
-		assertEquals(10, response.getTotalElements());
-		assertEquals(0, response.getPageable().getPageNumber());
-		assertEquals(2, response.getPageable().getPageSize());
-		assertEquals(2, response.getContent().size());
+		ResponseEntity<RestResponsePage<WorkerDto>> response = workerController.getAllWorkers(0, 2);
+		assertEquals(2, response.getBody().getContent().size());
+		assertEquals(10, response.getBody().getTotalElements());
+		assertEquals(0, response.getBody().getPageable().getPageNumber());
+		assertEquals(2, response.getBody().getPageable().getPageSize());
+		assertEquals(2, response.getBody().getContent().size());
 	}
 }

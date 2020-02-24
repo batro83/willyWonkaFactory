@@ -11,7 +11,6 @@ import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -29,6 +28,7 @@ import com.app.willywonkafactory.rest.dto.BaseWorkerDto;
 import com.app.willywonkafactory.rest.dto.WorkerDto;
 import com.app.willywonkafactory.rest.exception.AppRuntimeException;
 import com.app.willywonkafactory.rest.model.Worker;
+import com.app.willywonkafactory.rest.pagination.RestResponsePage;
 import com.app.willywonkafactory.rest.service.WorkerService;
 
 import io.swagger.annotations.ApiOperation;
@@ -66,19 +66,21 @@ public class WorkerController {
 	@GetMapping("/{id}")
 	public ResponseEntity<BaseWorkerDto> getWorker(@PathVariable("id") String idWorker) throws AppRuntimeException {
 		LOG.debug("WorkerController - getWorker {id}", idWorker);
-		return ResponseEntity.ok(mapper.map(workerService.getWorker(idWorker), BaseWorkerDto.class));
+		BaseWorkerDto map = mapper.map(workerService.getWorker(idWorker), BaseWorkerDto.class);
+		return ResponseEntity.ok(map);
 	}
 
 	@ApiOperation(value = "Get all workers", notes = "Get all workers paginated")
 	@GetMapping("/all")
-	public PageImpl<WorkerDto> getAllWorkers(@RequestParam(value = "page", defaultValue = "0") int page,
+	public ResponseEntity<RestResponsePage<WorkerDto>> getAllWorkers(
+			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "5") int size) throws AppRuntimeException {
 		LOG.debug("WorkerController - getAllWorkers");
 		Pageable pageableRequest = PageRequest.of(page, size);
 
 		Page<Worker> workerPage = workerService.getWorkers(pageableRequest);
-		List<WorkerDto> s = mapper.map(workerPage.getContent(), new TypeToken<List<WorkerDto>>() {
-		}.getType());
-		return new PageImpl<WorkerDto>(s, workerPage.getPageable(), workerPage.getTotalElements());
+		List<WorkerDto> s = mapper.map(workerPage.getContent(), new TypeToken<List<WorkerDto>>() {}.getType());
+		return ResponseEntity
+				.ok(new RestResponsePage<WorkerDto>(s, workerPage.getPageable(), workerPage.getTotalElements()));
 	}
 }
