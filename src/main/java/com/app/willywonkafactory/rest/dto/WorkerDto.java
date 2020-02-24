@@ -16,7 +16,7 @@ public class WorkerDto extends BaseWorkerDto {
 	private Double height;
 	@NotNull
 	private Double weight;
-	private String decription;
+	private String description;
 
 	public String getId() {
 		return id;
@@ -42,11 +42,11 @@ public class WorkerDto extends BaseWorkerDto {
 		this.weight = weight;
 	}
 
-	public String getDecription() {
-		return decription;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDecription(String decription) {
-		this.decription = decription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

@@ -1,7 +1,6 @@
-server:
-  port: 8081
-
 spring:
   data:
     mongodb:
-      uri: mongodb://root:root@localhost:27017/workers_test
+      database: willyWonkaDb_test
+      host: localhost
+      port: 27017

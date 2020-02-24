@@ -6,6 +6,8 @@ import static javax.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.app.willywonkafactory.rest.dao.WorkerDao;
@@ -30,12 +32,9 @@ public class WorkerServiceImpl implements WorkerService {
 
 	@Override
 	public void editWorker(String id, WorkerDto workerDto) throws AppRuntimeException {
-		Worker workerUpdate = workerDao.findById(id)
-				.orElseThrow(() -> new AppRuntimeException(SC_BAD_REQUEST, NO_WORKER_FOUND,
-						"There is no worker with id ".concat(id)));
-
+		Worker workerUpdate = getWorker(id);
 		ofNullable(workerDto.getAge()).ifPresent(workerUpdate::setAge);
-		ofNullable(workerDto.getDecription()).ifPresent(workerUpdate::setDecription);
+		ofNullable(workerDto.getDescription()).ifPresent(workerUpdate::setDescription);
 		ofNullable(workerDto.getHeight()).ifPresent(workerUpdate::setHeight);
 		ofNullable(workerDto.getJob()).ifPresent(workerUpdate::setJob);
 		ofNullable(workerDto.getName()).ifPresent(workerUpdate::setName);
@@ -45,15 +44,14 @@ public class WorkerServiceImpl implements WorkerService {
 	}
 
 	@Override
-	public void getWorkers() {
-		// TODO Auto-generated method stub
-
+	public Page<Worker> getWorkers(Pageable page) {
+		return workerDao.findAll(page);
 	}
 
 	@Override
-	public void getWorker() {
-		// TODO Auto-generated method stub
-
+	public Worker getWorker(String id) throws AppRuntimeException {
+		return workerDao.findById(id)
+				.orElseThrow(() -> new AppRuntimeException(SC_BAD_REQUEST, NO_WORKER_FOUND,
+						"There is no worker with id ".concat(id)));
 	}
-
 }
