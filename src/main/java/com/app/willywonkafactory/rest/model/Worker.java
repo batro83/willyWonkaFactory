@@ -1,12 +1,12 @@
 package com.app.willywonkafactory.rest.model;
 
+import javax.persistence.Entity;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
+@Entity
 public class Worker {
 
 	@Id
