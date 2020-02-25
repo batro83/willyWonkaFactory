@@ -64,7 +64,7 @@ public class WorkerController {
 
 	@ApiOperation(value = "Get worker information", notes = "Get worker information by id")
 	@GetMapping("/{id}")
-	public ResponseEntity<BaseWorkerDto> getWorker(@PathVariable("id") String idWorker) throws AppRuntimeException {
+	public ResponseEntity<BaseWorkerDto> getWorker(@PathVariable("id") String idWorker) {
 		LOG.debug("WorkerController - getWorker {id}", idWorker);
 		BaseWorkerDto map = mapper.map(workerService.getWorker(idWorker), BaseWorkerDto.class);
 		return ResponseEntity.ok(map);
@@ -74,7 +74,7 @@ public class WorkerController {
 	@GetMapping("/all")
 	public ResponseEntity<RestResponsePage<WorkerDto>> getAllWorkers(
 			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "size", defaultValue = "5") int size) throws AppRuntimeException {
+			@RequestParam(value = "size", defaultValue = "5") int size) {
 		LOG.debug("WorkerController - getAllWorkers");
 		Pageable pageableRequest = PageRequest.of(page, size);
 

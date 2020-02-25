@@ -8,7 +8,7 @@ import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.PATCH;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
 import java.net.URL;
@@ -60,7 +60,7 @@ public class WorkerControllerIntegrationTest {
 		final String path = "/worker/{id}";
 		final String id = "testIdNoExist";
 		final ResponseEntity<BaseWorkerDto> response = restTemplate.exchange(path, GET, EMPTY, BaseWorkerDto.class, id);
-		assertEquals(INTERNAL_SERVER_ERROR, response.getStatusCode());
+		assertEquals(NOT_FOUND, response.getStatusCode());
 	}
 
 	@Test
@@ -133,7 +133,7 @@ public class WorkerControllerIntegrationTest {
 		HttpEntity<WorkerDto> entity = new HttpEntity<>(new WorkerDto());
 
 		final ResponseEntity<String> response = restTemplate.exchange(path, PATCH, entity, String.class, id);
-		assertEquals(INTERNAL_SERVER_ERROR, response.getStatusCode());
+		assertEquals(NOT_FOUND, response.getStatusCode());
 	}
 
 	@Test

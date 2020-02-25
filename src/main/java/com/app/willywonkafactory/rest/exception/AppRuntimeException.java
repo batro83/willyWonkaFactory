@@ -3,18 +3,9 @@ package com.app.willywonkafactory.rest.exception;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
-public class AppRuntimeException extends Throwable {
+public class AppRuntimeException extends RuntimeException {
 
 	private static final long serialVersionUID = 6434704455929867758L;
-
-	/*
-	 * Constants
-	 */
-	public static final int ERR_CODE_BAD_REQUEST = 400;
-	public static final int ERR_CODE_UNAUTHORIZED = 401;
-	public static final int ERR_CODE_FORBIDDEN = 403;
-	public static final int ERR_CODE_NOT_FOUND = 404;
-	public static final int ERR_CODE_GENERIC = 500;
 
 	private int code;
 	private int status;
