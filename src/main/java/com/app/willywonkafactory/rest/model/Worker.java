@@ -1,10 +1,9 @@
 package com.app.willywonkafactory.rest.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-
-import org.springframework.data.annotation.Id;
 
 @Entity
 public class Worker {
