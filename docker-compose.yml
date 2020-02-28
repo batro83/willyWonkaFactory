@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  willywonkafactory:
+    image: willywonkafactory
+    build: .
+    restart: always
+    networks:
+    - gateway
+    ports:
+    - 8081:8081
+    links:
+    - mongodb
+    depends_on:
+    - mongodb
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+    - 27017:27017
+    restart: always
+    networks:
+    - gateway
+networks:
+  gateway:
+    driver: bridge

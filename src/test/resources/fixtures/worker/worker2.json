@@ -1,0 +1,38 @@
+ [
+	{
+		"id": "5e53910fcffcf26519e12000",
+		"name": "worker2",
+		"age": 33,
+		"job": "Job1",
+		"height": 189.5,
+		"weight": 80.7,
+		"description": "descrip"
+	},
+	{
+		"id": "5e53910fcffcf26519e12111",
+		"name": "worker3",
+		"age": 33,
+		"job": "Job2",
+		"height": 189.5,
+		"weight": 80.7,
+		"description": "descrip"
+	},
+	{
+		"id": "5e53910fcffcf26519e12222",
+		"name": "worker4",
+		"age": 33,
+		"job": "Job3",
+		"height": 189.5,
+		"weight": 80.7,
+		"description": "descrip"
+	},
+	{
+		"id": "5e53910fcffcf26519e12555",
+		"name": "worker5",
+		"age": 33,
+		"job": "Job1",
+		"height": 189.5,
+		"weight": 80.7,
+		"description": "descrip"
+	}
+]
