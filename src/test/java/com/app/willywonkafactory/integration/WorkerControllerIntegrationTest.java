@@ -15,6 +15,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,8 +27,10 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestTemplate;
 
 import com.app.willywonkafactory.rest.dao.WorkerDao;
 import com.app.willywonkafactory.rest.dto.BaseWorkerDto;
@@ -43,12 +48,20 @@ public class WorkerControllerIntegrationTest {
 
 	@Autowired
 	private TestRestTemplate restTemplate;
+	private RestTemplate patchRestTemplate;
 
 	@Autowired
 	private WorkerDao workerDao;
 
 	@Autowired
 	private ObjectMapper objectMapper;
+
+	@Before
+	public void setup() {
+		this.patchRestTemplate = restTemplate.getRestTemplate();
+		HttpClient httpClient = HttpClientBuilder.create().build();
+		this.patchRestTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory(httpClient));
+	}
 
 	@Test
 	public void test000_cleanDb() throws Exception {
@@ -132,20 +145,20 @@ public class WorkerControllerIntegrationTest {
 		final String id = "testIdNoExist";
 		HttpEntity<WorkerDto> entity = new HttpEntity<>(new WorkerDto());
 
-		final ResponseEntity<String> response = restTemplate.exchange(path, PATCH, entity, String.class, id);
+		final ResponseEntity<String> response = patchRestTemplate.exchange(path, PATCH, entity, String.class, id);
 		assertEquals(NOT_FOUND, response.getStatusCode());
 	}
 
 	@Test
 	public void test007_editWorker_ok() throws Exception {
-		final String path = "/worker/{id}";
+		final String path = "/worker/{id}?_method=patch";
 		final String id = "5e53910fcffcf26519e12444";
 
 		WorkerDto dto = new WorkerDto();
 		dto.setName("update name");
 
 		HttpEntity<WorkerDto> request = new HttpEntity<>(dto);
-		final ResponseEntity<String> response = restTemplate.exchange(path, PATCH, request, String.class, id);
+		final ResponseEntity<String> response = patchRestTemplate.exchange(path, PATCH, request, String.class, id);
 		assertEquals(OK, response.getStatusCode());
 
 		Optional<Worker> worker = workerDao.findById(id);
