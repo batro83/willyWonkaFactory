@@ -1,6 +1,6 @@
 # Willy Wonka Factory
 
-Willy wonka workers rest api (CRUD)) with MongoDb.  
+Willy wonka workers rest api (CRUD) with MongoDb.  
 
 ## Getting Started
 
@@ -46,6 +46,14 @@ Once the application is started with docker-compose it can be tested with swagge
 
 [http://localhost:8081/swagger-ui.html](http://localhost:8081/swagger-ui.html)
 
+
+### Libraries
+
+ * Guava: better way to init lists, and other functions.
+ * Swagger2: to test rest api with UI.
+ * ModelMapper: to map entities to DTO objects.
+ * Httpcomponents: to fix patch test bug
+ 
 
 ### Reference Documentation
 For further reference, please consider the following sections:
