@@ -10,7 +10,7 @@ Willy wonka workers rest api (CRUD) with MongoDb.
 In the root of the project run:
 
 ```
- gradle bootJar
+ ./gradlew bootJar
  
  docker-compose up 
 ```
@@ -23,7 +23,7 @@ This will build and start one container for the rest api and another container w
 In the root of the project build and run image:  
 
 ```
- gradle bootJar
+ ./gradle bootJar
 
  docker build -t willywonkafactory .  
  
@@ -36,7 +36,7 @@ To test the boot jar you must have a mongodb installed on your computer.
 In the root of the project run:
 
 ```
- gradle test
+ ./gradle test
 ```
 
 
